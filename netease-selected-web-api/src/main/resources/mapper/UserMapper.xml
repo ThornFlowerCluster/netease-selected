@@ -6,8 +6,39 @@
 <!--
       namespace；隔离sql语句
 -->
-<mapper namespace="com.netease.selected.dao">
+<mapper namespace="com.netease.selected.dao.UserDao">
+    <sql id="content">
+        a.uid,
+        a.username,
+        a.password,
+        a.phone,
+        a.email,
+        a.birthday,
+        a.sex,
+        a.hobby,
+        a.info
+    </sql>
 
+    <select id="selectUserByEmail" resultType="User">
+        select
+           <include refid="content"/>
+        FROM ne_user AS a
+        WHERE
+            a.email = #{email}
+
+    </select>
+
+    <select id="checkEmail" resultType="User">
+        select
+        <include refid="content"/>
+        FROM ne_user AS a
+        WHERE
+        a.email = #{email}
+    </select>
+
+    <insert id="insertUser" >
+        insert into ne_user (email,phone,password) VALUES (#{email},#{phone},#{password})
+    </insert>
 
 
 </mapper>

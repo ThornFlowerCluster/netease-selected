@@ -10,7 +10,7 @@
         <property name="dataSource" ref="dataSource"/>
         <!--配置别名-->
         <!-- 用于配置对应实体类所在的包，多个 package 之间可以用 ',' 号分割 -->
-        <property name="typeAliasesPackage" value="com.with.bai.domain"></property>
+        <property name="typeAliasesPackage" value="com.netease.selected.domain"></property>
         <!--加载mapper映射文件-->
         <!-- 用于配置对象关系映射配置文件所在目录 -->
         <property name="mapperLocations" value="classpath:/mapper/**/*.xml"/>
@@ -22,7 +22,7 @@
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!--配置扫描包，多个包 中间用，隔开-->
-        <property name="basePackage" value="com.with.bai.dao"/>
+        <property name="basePackage" value="com.netease.selected.dao"/>
         <!--注入sqlSessionFactory
                 最好注入
         -->

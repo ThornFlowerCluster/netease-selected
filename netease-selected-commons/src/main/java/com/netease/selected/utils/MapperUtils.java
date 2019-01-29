@@ -7,16 +7,12 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Jackson 工具类
- * <p>Title: MapperUtils</p>
- * <p>Description: </p>
- */
 public class MapperUtils {
     private final static ObjectMapper objectMapper = new ObjectMapper();
 
@@ -60,23 +56,6 @@ public class MapperUtils {
         objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
         return objectMapper.readValue(jsonString, clazz);
     }
-
-    /**
-     * 根据指定的json节点返回pojo
-     * @author 小李
-     * @param jsonString json字符串
-     * @param clazz 返回pojo的字节码对象
-     * @param <T>
-     * @return
-     * @throws Exception
-     */
-    public static <T> T json2pojoByTree(String jsonString,String tree, Class<T> clazz) throws Exception {
-        JsonNode jsonNode = objectMapper.readTree(jsonString);
-        JsonNode data = jsonNode.findPath(tree);//"data"
-        return MapperUtils.json2pojo(data.toString(),clazz);
-    }
-
-
 
     /**
      * 字符串转换为 Map<String, Object>
@@ -240,17 +219,14 @@ public class MapperUtils {
         return objectMapper.convertValue(obj, clazz);
     }
 
-    /**
-     * 将json对象根据指定的键转换成集合
-     * @author 小李
-     *
-     */
     public static <T> List<T> json2listByTree(String jsonArrayStr,String tree, Class<T> clazz) throws Exception {
         JsonNode jsonNode = objectMapper.readTree(jsonArrayStr);
         JsonNode data = jsonNode.findPath(tree);
         return  MapperUtils.json2list(data.toString(),clazz);
     }
-
-
-
+    public static <T> T json2pojoByTree(String jsonString,String tree, Class<T> clazz) throws Exception {
+        JsonNode jsonNode = objectMapper.readTree(jsonString);
+        JsonNode data = jsonNode.findPath(tree);//"data"
+        return MapperUtils.json2pojo(data.toString(),clazz);
+    }
 }
